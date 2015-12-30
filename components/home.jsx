@@ -37,6 +37,7 @@ PatternList = React.createClass({
             <div className="pattern" key={i}>
               <h3>{pattern.name}</h3>
               <Example
+                patternId={pattern._id}
                 markup={pattern.markup}
                 stylesheet={this.props.stylesheet}/>
             </div>
@@ -48,15 +49,52 @@ PatternList = React.createClass({
 });
 
 Example = React.createClass({
-  componentDidMount() {
+  getInitialState() {
+    return {
+      editing: false
+    };
+  },
+
+  handleEditToggle() {
+    this.setState({editing: !this.state.editing})
+  },
+
+  handleMarkupEdit(event) {
+    Meteor.call('updateMarkup', {
+      id: this.props.patternId,
+      markup: event.target.value
+    });
+  },
+
+  _renderExample() {
     let exampleFrame = this.refs.example;
     let exampleFrameDoc = exampleFrame.contentWindow.document;
     exampleFrameDoc.write(`<html><head><link rel="stylesheet" href="${this.props.stylesheet}"></head><body>${this.props.markup}</body></html>`);
   },
 
+  componentDidMount() {
+    this._renderExample();
+  },
+
+  componentDidUpdate() {
+    if(!this.state.editing) {
+      this._renderExample();
+    }
+  },
+
   render: function() {
     return (
-      <iframe className="pattern__markup" ref="example"/>
+      <div className="markup">
+        {this.state.editing ?
+          <textarea
+            className="markup__edit"
+            defaultValue={this.props.markup}
+            onChange={this.handleMarkupEdit}/>
+        : <iframe className="markup__frame" ref="example"/>}
+        <a onClick={this.handleEditToggle}>
+          {this.state.editing ? 'Done' : 'Edit'}
+        </a>
+      </div>
     );
   }
 });
@@ -76,4 +114,21 @@ if(Meteor.isClient) {
       });
     }
   });
+}
+
+if(Meteor.isServer) {
+  Meteor.methods({
+    updateMarkup(args) {
+      check(args, {
+        id: String,
+        markup: String
+      });
+
+      return Patterns.update(args.id, {
+        $set : {
+          markup: args.markup
+        }
+      });
+    }
+  })
 }
