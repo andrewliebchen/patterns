@@ -19,6 +19,7 @@ Home = React.createClass({
                 <PatternList
                   patterns={this.data.patterns}
                   stylesheet={styleguide.stylesheet}/>
+                <NewPattern styleguideId={styleguide._id}/>
               </div>
             );
           })}
@@ -29,6 +30,11 @@ Home = React.createClass({
 });
 
 PatternList = React.createClass({
+  propTypes: {
+    patterns: React.PropTypes.array,
+    stylesheet: React.PropTypes.string
+  },
+
   render() {
     return (
       <div className="patterns">
@@ -49,52 +55,105 @@ PatternList = React.createClass({
 });
 
 Example = React.createClass({
+  propTypes: {
+    patternId: React.PropTypes.string,
+    markup: React.PropTypes.string,
+    stylesheet: React.PropTypes.string
+  },
+
   getInitialState() {
     return {
+      markup: this.props.markup,
       editing: false
     };
   },
 
-  handleEditToggle() {
-    this.setState({editing: !this.state.editing})
+  handleEdit() {
+    this.setState({editing: true})
+  },
+
+  handleUpdateMarkup(event) {
+    this.setState({markup: event.target.value})
   },
 
   handleMarkupEdit(event) {
     Meteor.call('updateMarkup', {
       id: this.props.patternId,
-      markup: event.target.value
+      markup: this.state.markup
+    }, (error, success) => {
+      if(success) {
+        this.setState({editing: false});
+        this._renderExample();
+      }
     });
   },
 
   _renderExample() {
     let exampleFrame = this.refs.example;
     let exampleFrameDoc = exampleFrame.contentWindow.document;
-    exampleFrameDoc.write(`<html><head><link rel="stylesheet" href="${this.props.stylesheet}"></head><body>${this.props.markup}</body></html>`);
+    exampleFrameDoc.write(`<html><head><link rel="stylesheet" href="${this.props.stylesheet}"></head><body>${this.state.markup}</body></html>`);
   },
 
   componentDidMount() {
     this._renderExample();
   },
 
-  componentDidUpdate() {
-    if(!this.state.editing) {
-      this._renderExample();
-    }
-  },
-
   render: function() {
     return (
       <div className="markup">
         {this.state.editing ?
-          <textarea
-            className="markup__edit"
-            defaultValue={this.props.markup}
-            onChange={this.handleMarkupEdit}/>
-        : <iframe className="markup__frame" ref="example"/>}
-        <a onClick={this.handleEditToggle}>
-          {this.state.editing ? 'Done' : 'Edit'}
-        </a>
+          <div className="form-group">
+            <textarea
+              className="editor"
+              defaultValue={this.state.markup}
+              onChange={this.handleUpdateMarkup}/>
+            <button type="submit" onClick={this.handleMarkupEdit}>
+              Save
+            </button>
+          </div>
+        :
+          <div className="form-group">
+            <iframe className="markup__frame" ref="example"/>
+            <a onClick={this.handleEdit}>Edit</a>
+          </div>
+        }
       </div>
+    );
+  }
+});
+
+NewPattern = React.createClass({
+  propTypes: {
+    styleguideId: React.PropTypes.string
+  },
+
+  handleSavePattern(event) {
+    event.preventDefault();
+    Meteor.call('addPattern', {
+      styleguide: this.props.styleguideId,
+      name: ReactDOM.findDOMNode(this.refs.name).value,
+      markup: ReactDOM.findDOMNode(this.refs.editor).value,
+      created_at: Date.now()
+    });
+  },
+
+  render() {
+    return (
+      <form className="new-pattern">
+        <h4>New pattern</h4>
+        <div className="form-group">
+          <label>Pattern name</label>
+          <input type="text" ref="name"/>
+        </div>
+        <div className="form-group">
+          <label>Pattern markup</label>
+          <textarea
+            className="editor"
+            defaultValue={this.props.markup}
+            ref="editor"/>
+        </div>
+        <input type="submit" value="Save" onClick={this.handleSavePattern}/>
+      </form>
     );
   }
 });
@@ -128,6 +187,22 @@ if(Meteor.isServer) {
         $set : {
           markup: args.markup
         }
+      });
+    },
+
+    addPattern(args) {
+      check(args, {
+        styleguide: String,
+        name: String,
+        markup: String,
+        created_at: Number
+      });
+
+      return Patterns.insert({
+        styleguide: args.styleguide,
+        name: args.name,
+        markup: args.markup,
+        created_at: args.created_at
       });
     }
   })
