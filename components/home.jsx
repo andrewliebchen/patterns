@@ -1,3 +1,9 @@
+const writeExample = (stylesheet, markup) => {
+  let head = `<head><link rel="stylesheet" href="${stylesheet}"></head>`;
+  let body = `<body style="display:inline-block;">${markup}</body>`;
+  return `<html>${head}${body}</html>`
+};
+
 Home = React.createClass({
   mixins: [ReactMeteorData],
 
@@ -91,7 +97,7 @@ Example = React.createClass({
   _renderExample() {
     let exampleFrame = this.refs.example;
     let exampleFrameDoc = exampleFrame.contentWindow.document;
-    exampleFrameDoc.write(`<html><head><link rel="stylesheet" href="${this.props.stylesheet}"></head><body>${this.state.markup}</body></html>`);
+    exampleFrameDoc.write(writeExample(this.props.stylesheet, this.state.markup));
   },
 
   componentDidMount() {
@@ -113,7 +119,11 @@ Example = React.createClass({
           </div>
         :
           <div className="form-group">
-            <iframe className="markup__frame" ref="example"/>
+            <iframe
+              className="markup__frame"
+              frameBorder="0"
+              scrolling="no"
+              ref="example"/>
             <a onClick={this.handleEdit}>Edit</a>
           </div>
         }
@@ -159,6 +169,7 @@ NewPattern = React.createClass({
 });
 
 if(Meteor.isClient) {
+
   FlowRouter.route('/', {
     subscriptions() {
       this.register('styleguides', Meteor.subscribe('styleguides'));
