@@ -7,13 +7,13 @@ Example = React.createClass({
 
   getInitialState() {
     return {
-      markup: this.props.markup,
-      editing: false
+      tab: 0,
+      markup: this.props.markup
     };
   },
 
-  handleEdit() {
-    this.setState({editing: true})
+  handleTab(tab) {
+    this.setState({tab: tab});
   },
 
   handleUpdateMarkup(event) {
@@ -25,52 +25,43 @@ Example = React.createClass({
       id: this.props.patternId,
       markup: this.state.markup
     }, (error, success) => {
-      if(success) {
-        this.setState({editing: false});
-        this._renderExample();
-      }
+      this.setState({tab: 0});
     });
-  },
-
-  _writeExample(stylesheet, markup) {
-    let head = `<head><link rel="stylesheet" href="${stylesheet}"></head>`;
-    let body = `<body style="display:inline-block;">${markup}</body>`;
-    return `<html>${head}${body}</html>`
-  },
-
-  _renderExample() {
-    let exampleFrame = this.refs.example;
-    let exampleFrameDoc = exampleFrame.contentWindow.document;
-    exampleFrameDoc.write(this._writeExample(this.props.stylesheet, this.state.markup));
-  },
-
-  componentDidMount() {
-    this._renderExample();
   },
 
   render: function() {
     return (
-      <div className="markup">
-        {this.state.editing ?
-          <div className="form-group">
-            <textarea
-              className="editor"
-              defaultValue={this.state.markup}
-              onChange={this.handleUpdateMarkup}/>
-            <button type="submit" onClick={this.handleMarkupEdit}>
-              Save
-            </button>
+      <div className="example">
+        <nav className="tabs">
+          <a
+            className={`tab ${this.state.tab === 0 ? 'is-active' : ''}`}
+            onClick={this.handleTab.bind(null, 0)}>
+            Example
+          </a>
+          <a
+            className={`tab ${this.state.tab === 1 ? 'is-active' : ''}`}
+            onClick={this.handleTab.bind(null, 1)}>
+            Markup
+          </a>
+        </nav>
+        {this.state.tab === 0 ?
+          <div className="tabs__pane">
+            <ExampleView markup={this.state.markup} stylesheet={this.props.stylesheet}/>
           </div>
-        :
-          <div className="form-group">
-            <iframe
-              className="markup__frame"
-              frameBorder="0"
-              scrolling="no"
-              ref="example"/>
-            <a onClick={this.handleEdit}>Edit</a>
+        : null}
+        {this.state.tab === 1 ?
+          <div className="tabs__pane">
+            <div className="form-group">
+              <textarea
+                className="editor"
+                defaultValue={this.state.markup}
+                onChange={this.handleUpdateMarkup}/>
+              <button type="submit" onClick={this.handleMarkupEdit}>
+                Save
+              </button>
+            </div>
           </div>
-        }
+        : null}
       </div>
     );
   }

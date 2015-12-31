@@ -3,26 +3,22 @@ Styleguide = React.createClass({
 
   getMeteorData() {
     return {
-      styleguides: Styleguides.find().fetch(),
+      styleguide: Styleguides.findOne(),
       patterns: Patterns.find().fetch()
     };
   },
 
   render() {
     return (
-      <div className="wrapper">
-        <div className="styleguides">
-          {this.data.styleguides.map((styleguide, i) => {
-            return (
-              <div className="styleguide" key={i}>
-                <h2>{styleguide.name}</h2>
-                <PatternList
-                  patterns={this.data.patterns}
-                  stylesheet={styleguide.stylesheet}/>
-                <NewPattern styleguideId={styleguide._id}/>
-              </div>
-            );
-          })}
+      <div className="container">
+        <aside className="sidebar">
+          <h2>{this.data.styleguide.name}</h2>
+          {/*<NewPattern styleguideId={this.data.styleguide._id}/>*/}
+        </aside>
+        <div className="main">
+          <PatternList
+            patterns={this.data.patterns}
+            stylesheet={this.data.styleguide.stylesheet}/>
         </div>
       </div>
     );
