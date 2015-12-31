@@ -20,7 +20,7 @@ Example = React.createClass({
     this.setState({markup: event.target.value})
   },
 
-  handleMarkupEdit(event) {
+  handleSaveMarkup(event) {
     Meteor.call('updateMarkup', {
       id: this.props.patternId,
       markup: this.state.markup
@@ -51,15 +51,10 @@ Example = React.createClass({
         : null}
         {this.state.tab === 1 ?
           <div className="tabs__pane">
-            <div className="form-group">
-              <textarea
-                className="editor"
-                defaultValue={this.state.markup}
-                onChange={this.handleUpdateMarkup}/>
-              <button type="submit" onClick={this.handleMarkupEdit}>
-                Save
-              </button>
-            </div>
+            <Editor
+              markup={this.state.markup}
+              onChange={this.handleUpdateMarkup}
+              onSave={this.handleSaveMarkup}/>
           </div>
         : null}
       </div>
