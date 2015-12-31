@@ -1,8 +1,21 @@
 Editor = React.createClass({
   propTypes: {
     markup: React.PropTypes.string,
-    onChange: React.PropTypes.func,
     onSave: React.PropTypes.func
+  },
+
+  getInitialState() {
+    return {
+      editor: null
+    };
+  },
+
+  componentDidMount() {
+    let editor = CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs.editor), {
+      lineNumbers: true,
+      mode: 'htmlmixed'
+    });
+    this.setState({editor: editor});
   },
 
   render() {
@@ -11,8 +24,10 @@ Editor = React.createClass({
         <textarea
           className="editor__input"
           defaultValue={this.props.markup}
-          onChange={this.props.onChange}/>
-        <button type="submit" onClick={this.props.onSave}>
+          ref="editor"/>
+        <button
+          type="submit"
+          onClick={this.props.onSave.bind(null, this)}>
           Save
         </button>
       </div>

@@ -16,11 +16,10 @@ Example = React.createClass({
     this.setState({tab: tab});
   },
 
-  handleUpdateMarkup(event) {
-    this.setState({markup: event.target.value})
-  },
+  handleSaveMarkup(component, event) {
+    // This might be a bad idea...
+    this.setState({markup: component.state.editor.getValue()});
 
-  handleSaveMarkup(event) {
     Meteor.call('updateMarkup', {
       id: this.props.patternId,
       markup: this.state.markup
@@ -30,6 +29,7 @@ Example = React.createClass({
   },
 
   render: function() {
+    console.log(this.state.markup);
     return (
       <div className="example">
         <nav className="tabs">
@@ -46,14 +46,15 @@ Example = React.createClass({
         </nav>
         {this.state.tab === 0 ?
           <div className="tabs__pane">
-            <ExampleView markup={this.state.markup} stylesheet={this.props.stylesheet}/>
+            <ExampleView
+              markup={this.state.markup}
+              stylesheet={this.props.stylesheet}/>
           </div>
         : null}
         {this.state.tab === 1 ?
           <div className="tabs__pane">
             <Editor
               markup={this.state.markup}
-              onChange={this.handleUpdateMarkup}
               onSave={this.handleSaveMarkup}/>
           </div>
         : null}
