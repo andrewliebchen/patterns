@@ -2,7 +2,7 @@ Meteor.publish(null, () => {
   return Meteor.roles.find({});
 });
 
-Meteor.publish('styleguides', (slug) => {
+Meteor.publish('styleguide', (slug) => {
   let styleguide = Styleguides.find({slug: slug});
   return [
     styleguide,

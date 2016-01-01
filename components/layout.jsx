@@ -24,7 +24,7 @@ Alert = React.createClass({
   }
 });
 
-Layout = React.createClass({
+Wrapper = React.createClass({
   propTypes: {
     content: React.PropTypes.element.isRequired
   },
@@ -34,6 +34,36 @@ Layout = React.createClass({
       <div className="wrapper">
         <Alert/>
         {this.props.content}
+      </div>
+    );
+  }
+});
+
+Container = React.createClass({
+  render() {
+    return (
+      <div className="container">
+        {this.props.children}
+      </div>
+    );
+  }
+});
+
+Sidebar = React.createClass({
+  render() {
+    return (
+      <aside className="sidebar">
+        {this.props.children}
+      </aside>
+    );
+  }
+});
+
+Main = React.createClass({
+  render() {
+    return (
+      <div className="main">
+        {this.props.children}
       </div>
     );
   }

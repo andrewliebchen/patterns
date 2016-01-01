@@ -1,26 +1,29 @@
-Styleguide = React.createClass({
+const Styleguide = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
+    let styleguide = Styleguides.findOne();
+    DocHead.setTitle(`${styleguide.name} on Patterns`);
     return {
-      styleguide: Styleguides.findOne(),
+      styleguide: styleguide,
       patterns: Patterns.find().fetch()
     };
   },
 
   render() {
+    let {styleguide, patterns} = this.data;
     return (
-      <div className="container">
-        <aside className="sidebar">
-          <h2>{this.data.styleguide.name}</h2>
-          {/*<NewPattern styleguideId={this.data.styleguide._id}/>*/}
-        </aside>
-        <div className="main">
+      <Container>
+        <Sidebar>
+          <h2>{styleguide.name}</h2>
+          {/*<NewPattern styleguideId={styleguide._id}/>*/}
+        </Sidebar>
+        <Main>
           <PatternList
-            patterns={this.data.patterns}
-            stylesheet={this.data.styleguide.stylesheet}/>
-        </div>
-      </div>
+            patterns={patterns}
+            stylesheet={styleguide.stylesheet}/>
+        </Main>
+      </Container>
     );
   }
 });
@@ -28,13 +31,12 @@ Styleguide = React.createClass({
 if(Meteor.isClient) {
   FlowRouter.route('/:slug', {
     subscriptions(params) {
-      this.register('styleguides', Meteor.subscribe('styleguides', params.slug));
+      this.register('styleguide', Meteor.subscribe('styleguide', params.slug));
     },
 
     action() {
-      FlowRouter.subsReady('styleguides', () => {
-        DocHead.setTitle('Patterns');
-        ReactLayout.render(Layout, {
+      FlowRouter.subsReady('styleguide', () => {
+        ReactLayout.render(Wrapper, {
           content: <Styleguide/>
         });
       });
