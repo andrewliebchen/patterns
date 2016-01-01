@@ -6,6 +6,6 @@ Meteor.publish('styleguide', (slug) => {
   let styleguide = Styleguides.find({slug: slug});
   return [
     styleguide,
-    Patterns.find({parent: styleguide.fetch()._id})
+    Patterns.find({'styleguide': styleguide.fetch()[0]._id})
   ];
 });

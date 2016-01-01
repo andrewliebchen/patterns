@@ -1,0 +1,29 @@
+table {
+  background-color: white;
+  table-layout: auto;
+  width: 100%;
+
+  + table,
+  + .form-group {
+    margin-top: 2em;
+  }
+}
+
+th,
+td {
+  padding: 0.5em;
+}
+
+th {
+  text-align: left;
+}
+
+tbody {
+  tr:nth-child(odd) {
+    background-color: lighten($colorGray, 1.5%);
+  }
+}
+
+thead {
+  color: lighten($colorGrayDark, 10%);
+}

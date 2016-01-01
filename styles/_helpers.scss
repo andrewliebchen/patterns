@@ -1,0 +1,59 @@
+$colorBrand: blue;
+$colorBrandLight: lighten($colorBrand, 10%);
+$colorBrandDark: darken($colorBrand, 10%);
+
+$colorGray: #f2f2f6;
+$colorGrayMid: #dedee2;
+$colorGrayDark: #243233;
+
+$colorNegative: #F05356;
+$colorPositive: #19C594;
+
+$maxWidth: 70em;
+$offset: 3em;
+
+$blockSize: 3em;
+$blockSizeSmall: 2em;
+$blockSizeTiny: 1.5em;
+
+$panelTransition: transform 0.15s ease-in-out;
+$ease-in-out-back: cubic-bezier(0.680, -0.550, 0.265, 1.550);
+
+@mixin clearfix {
+  &::after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+}
+
+@mixin prefixer($property, $value) {
+     -moz-#{$property}: $value;
+  -webkit-#{$property}: $value;
+          #{$property}: $value;
+}
+
+@mixin uppercase($bold: true) {
+  @if $bold {
+    font-weight: bold;
+  }
+
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+@mixin ellipsis($width: 100%) {
+  display: inline-block;
+  max-width: $width;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+@mixin center($position: absolute, $transform: '') {
+  left: 50%;
+  position: $position;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0) #{$transform};
+}

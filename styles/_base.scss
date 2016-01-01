@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@mixin selection {
+  background-color: $colorBrand;
+  color: white;
+}
+
+::-moz-selection {
+  @include selection;
+}
+
+::selection {
+  @include selection;
+}
+
+html,
+body {
+  background-color: $colorGray;
+  color: $colorGrayDark;
+  font-family: "Work Sans", "helvetica neue", helvetica, arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+a {
+  cursor: pointer;
+  color: $colorBrand;
+  fill: $colorBrand;
+  text-decoration: underline;
+
+  &:hover {
+    color: $colorBrandLight;
+    fill: $colorBrandLight;
+  }
+
+  &:visited {
+    color: desaturate($colorBrand, 20%);
+  }
+
+  svg {
+    position: relative;
+    top: 2px;
+  }
+}
+
+h1,
+h2 {
+  @include uppercase;
+  margin-bottom: 1em;
+}
+
+p {
+  margin: 0 0 0.5em 0;
+}
+
+img {
+  display: block;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+a.brand {
+  @include uppercase;
+  font-size: 1.5em;
+  color: $colorGrayDark;
+  text-decoration: none;
+  margin-bottom: 0.5em;
+
+  &:hover {
+    color: $colorBrand;
+  }
+}
+
+.example__frame {
+  padding: 1em;
+  display: block;
+}

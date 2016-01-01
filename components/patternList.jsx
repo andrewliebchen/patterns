@@ -9,7 +9,7 @@ PatternList = React.createClass({
       <div className="patterns">
         {this.props.patterns.map((pattern, i) => {
           return (
-            <div className="pattern" key={i}>
+            <div className="pattern section" key={i}>
               <h3>
                 <InlineEdit
                   defaultValue={pattern.name}

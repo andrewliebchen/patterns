@@ -1,0 +1,100 @@
+@mixin block-size($size) {
+  border-radius: $size / 2;
+  height: $size;
+  line-height: $size;
+  min-width: $size;
+
+  .avatar__image img {
+    border-radius: $size / 2;
+    max-height: $size;
+    max-width: $size;
+  }
+}
+
+@keyframes badge {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.block {
+  background-color: $colorGrayMid;
+  cursor: pointer;
+  display: inline-block;
+  fill: $colorGrayDark;
+  float: left;
+  line-height: $blockSize;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+
+  &:hover,
+  &.is-selected {
+    background-color: $colorBrand;
+    fill: $colorGray;
+  }
+
+  &.is-selected {
+    cursor: default;
+  }
+
+  // Flavor
+  &.is-good,
+  &.is-bad {
+    fill: $colorGrayDark;
+  }
+
+  &.is-good {
+    background-color: $colorPositive;
+  }
+
+  &.is-bad {
+    background-color: $colorNegative;
+  }
+
+  // Size
+  &.medium {
+    @include block-size($blockSize);
+  }
+
+  &.small {
+    @include block-size($blockSizeSmall);
+  }
+
+  &.tiny {
+    @include block-size($blockSizeTiny);
+  }
+
+  svg {
+    @include center;
+  }
+}
+
+.block__badge {
+  $size: 2em;
+  $margin: -($size * 0.25);
+  animation: badge 0.3s $ease-in-out-back;
+  background-color: $colorGrayDark;
+  border-radius: $size / 2;
+  color: $colorGray;
+  font-size: 0.75em;
+  height: $size;
+  line-height: $size;
+  margin: $margin $margin 0 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: $size;
+}
+
+.block__label {
+  color: $colorGray;
+  font-weight: bold;
+  padding: 0 1em;
+}

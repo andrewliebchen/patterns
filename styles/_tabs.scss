@@ -1,0 +1,19 @@
+.tab {
+  line-height: 2;
+  display: inline-block;
+  font-weight: bold;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+  margin-left: 1em;
+
+  &:hover,
+  &.active-tab {
+    color: $colorBrand;
+    border-color: $colorBrand;
+  }
+}
+
+.tabs__pane {
+  border: 3px solid $colorGray;
+}

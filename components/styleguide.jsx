@@ -1,4 +1,4 @@
-const Styleguide = React.createClass({
+Styleguide = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData() {
@@ -6,7 +6,7 @@ const Styleguide = React.createClass({
     DocHead.setTitle(`${styleguide.name} on Patterns`);
     return {
       styleguide: styleguide,
-      patterns: Patterns.find().fetch()
+      patterns: Patterns.find({}).fetch()
     };
   },
 
@@ -14,8 +14,7 @@ const Styleguide = React.createClass({
     let {styleguide, patterns} = this.data;
     return (
       <Container>
-        <Sidebar>
-          <h2>{styleguide.name}</h2>
+        <Sidebar styleguide={styleguide}>
           {/*<NewPattern styleguideId={styleguide._id}/>*/}
         </Sidebar>
         <Main>

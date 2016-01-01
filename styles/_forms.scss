@@ -1,0 +1,148 @@
+@keyframes button-press {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.form-group {
+  + .form-group,
+  + button,
+  + table {
+    margin-top: 1em;
+  }
+}
+
+label {
+  @include uppercase($bold: false);
+  font-size: 0.75em;
+}
+
+input,
+textarea {
+  appearance: none;
+  background-color: $colorGrayMid;
+  border: 0;
+  color: inherit;
+  display: block;
+  padding: 0.5em 0.75em;
+  width: 100%;
+
+  &:hover {
+    background-color: lighten($colorGrayMid, 2%);
+  }
+
+  &:focus {
+    background-color: white;
+    box-shadow: inset 0 0 0 1px $colorBrand,;
+  }
+
+  &:disabled {
+    color: lighten($colorGrayDark, 25%);
+    pointer-events: none;
+  }
+}
+
+input {
+  line-height: 2em;
+}
+
+textarea {
+  min-height: 6em;
+}
+
+input,
+textarea,
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  @include uppercase;
+  appearance: none;
+  background-color: $colorBrand;
+  border: 0;
+  color: white;
+  display: inline-block;
+  fill: white;
+  font-weight: bold;
+  line-height: 3em;
+  padding: 0 1.5em;
+
+  &:hover {
+    background-color: $colorBrandLight;
+  }
+
+  &:active {
+    animation: button-press 0.1s $ease-in-out-back;
+    background-color: $colorBrandDark;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &.full-width {
+    width: 100%;
+  }
+
+  &.negative {
+    background-color: $colorNegative;
+  }
+
+  &.small {
+    line-height: 1.5em;
+    padding: 0 0.25em;
+  }
+
+  svg {
+    position: relative;
+    top: 0.3em;
+  }
+
+  + button {
+    margin-left: 0.25em;
+  }
+}
+
+.alert {
+  @include uppercase;
+  color: $colorBrand;
+  margin-bottom: 1em;
+}
+
+.input-group {
+  display: flex;
+  position: relative;
+
+  input {
+    width: auto;
+    flex: 1;
+  }
+}
+
+.inline-edit {
+  position: relative;
+
+  input,
+  textarea {
+    font-weight: inherit;
+    text-align: inherit;
+  }
+}
+
+.inline-edit__close {
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+}

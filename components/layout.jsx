@@ -53,6 +53,11 @@ Sidebar = React.createClass({
   render() {
     return (
       <aside className="sidebar">
+          <a
+            href={`/${this.props.styleguide.slug}`}
+            className="brand">
+            {this.props.styleguide.name}
+          </a>
         {this.props.children}
       </aside>
     );

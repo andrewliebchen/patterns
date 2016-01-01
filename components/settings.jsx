@@ -9,16 +9,28 @@ const Settings = React.createClass({
     };
   },
 
+  handleSave() {
+    console.log("save");
+  },
+
+  handleDelete() {
+    if(window.confirm('Are you sure you want to delete this styleguide?')) {
+      Meteor.call('deleteStyleguide', this.data.styleguide._id, (error, success) => {
+        Session.set('alert', 'Styleguide deleted!');
+      });
+    }
+  },
+
   render() {
     let {styleguide} = this.data;
     return (
       <Container>
-        <Sidebar>
-          <h2>{styleguide.name}</h2>
-        </Sidebar>
+        <Sidebar styleguide={styleguide}/>
         <Main>
-          <h3>Settings</h3>
-          <section className="section">
+          <header className="section__header">
+            <h3>Settings</h3>
+          </header>
+          <form className="section">
             <div className="form-group">
               <label>Styleguide name</label>
               <input
@@ -38,10 +50,13 @@ const Settings = React.createClass({
                 type="url"
                 defaultValue={styleguide.stylesheet}/>
             </div>
-          </section>
+            <button type="submit" onClick={this.handleSave}>Save settings</button>
+          </form>
           <section className="section">
             <div className="form-group">
-              <button className="negative">Delete styleguide</button>
+              <h3>Danger zone!</h3>
+              <p>Delete styleguide and patterns. Careful, this action can't be undone!</p>
+              <button className="negative" onClick={this.handleDelete}>Delete styleguide</button>
             </div>
           </section>
         </Main>
@@ -62,6 +77,18 @@ if(Meteor.isClient) {
           content: <Settings/>
         });
       });
+    }
+  });
+}
+
+if(Meteor.isServer) {
+  Meteor.methods({
+    deleteStyleguide(id) {
+      check(id, String);
+      return [
+        Styleguides.remove(id),
+        Patterns.remove({styleguide: id})
+      ];
     }
   });
 }

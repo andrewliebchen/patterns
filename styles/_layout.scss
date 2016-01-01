@@ -1,0 +1,32 @@
+.wrapper {
+  padding: 1em;
+}
+
+.container {
+  display: flex;
+  max-width: $maxWidth;
+  margin: auto;
+  background-color: white;
+  padding: $offset;
+}
+
+.sidebar {
+  flex: 1;
+}
+
+.main {
+  flex: 4;
+  padding-left: $offset;
+}
+
+.section {
+  + .section {
+    margin-top: $offset;
+  }
+}
+
+.section__header {
+  margin-bottom: 1.5em;
+  padding-bottom: 1em;
+  border-bottom: 3px solid $colorGray;
+}
