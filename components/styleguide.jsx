@@ -26,9 +26,9 @@ Styleguide = React.createClass({
 });
 
 if(Meteor.isClient) {
-  FlowRouter.route('/', {
-    subscriptions() {
-      this.register('styleguides', Meteor.subscribe('styleguides'));
+  FlowRouter.route('/:slug', {
+    subscriptions(params) {
+      this.register('styleguides', Meteor.subscribe('styleguides', params.slug));
     },
 
     action() {
