@@ -1,13 +1,22 @@
 Editor = React.createClass({
   propTypes: {
     markup: React.PropTypes.string,
-    onSave: React.PropTypes.func
+    patternId: React.PropTypes.string,
   },
 
   getInitialState() {
     return {
       editor: null
     };
+  },
+
+  handleSave() {
+    Meteor.call('updateMarkup', {
+      id: this.props.patternId,
+      markup: this.state.editor.getValue()
+    }, (error, success) => {
+      this.setState({tab: 0});
+    });
   },
 
   componentDidMount() {
@@ -27,10 +36,27 @@ Editor = React.createClass({
           ref="editor"/>
         <button
           type="submit"
-          onClick={this.props.onSave.bind(null, this)}>
+          onClick={this.handleSave}>
           Save
         </button>
       </div>
     );
   }
 });
+
+if(Meteor.isServer) {
+  Meteor.methods({
+    updateMarkup(args) {
+      check(args, {
+        id: String,
+        markup: String
+      });
+
+      return Patterns.update(args.id, {
+        $set : {
+          markup: args.markup
+        }
+      });
+    }
+  });
+}

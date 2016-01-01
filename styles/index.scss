@@ -107,10 +107,6 @@ h4 {
   }
 }
 
-.tab-container {
-
-}
-
 .tab {
   line-height: 2;
   display: inline-block;
@@ -121,7 +117,7 @@ h4 {
   margin-left: 1em;
 
   &:hover,
-  &.is-active {
+  &.active-tab {
     color: $colorBrand;
     border-color: $colorBrand;
   }
