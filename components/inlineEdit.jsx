@@ -3,12 +3,14 @@ InlineEdit = React.createClass({
     defaultValue: React.PropTypes.string,
     method: React.PropTypes.string,
     parentId: React.PropTypes.string,
-    type: React.PropTypes.oneOf(['input', 'textarea'])
+    type: React.PropTypes.oneOf(['input', 'textarea']),
+    placeholder: React.PropTypes.string
   },
 
   getDefaultProps() {
     return {
-      type: 'input'
+      type: 'input',
+      placeholder: 'Click to add'
     };
   },
 
@@ -80,7 +82,7 @@ InlineEdit = React.createClass({
       <span onClick={this.handleEditToggle}>
         {defaultValue ? type === 'textarea' ?
           <Markdown>{defaultValue}</Markdown>
-        : defaultValue : 'Click to add'}
+        : defaultValue : this.props.placeholder}
       </span>
     );
   }

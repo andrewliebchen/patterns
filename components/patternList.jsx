@@ -14,13 +14,15 @@ PatternList = React.createClass({
                 <InlineEdit
                   defaultValue={pattern.name}
                   method="updatePatternName"
-                  parentId={pattern._id}/>
+                  parentId={pattern._id}
+                  placeholder="Click to add at title"/>
               </h3>
               <InlineEdit
                 defaultValue={pattern.description}
                 type="textarea"
                 method="updatePatternDescription"
-                parentId={pattern._id}/>
+                parentId={pattern._id}
+                placeholder="Click to add a description"/>
               <Example
                 patternId={pattern._id}
                 markup={pattern.markup}
