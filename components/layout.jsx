@@ -50,15 +50,42 @@ Container = React.createClass({
 });
 
 Sidebar = React.createClass({
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    let styleguide = Styleguides.findOne();
+    return {
+      styleguide: styleguide,
+      patterns: Patterns.find({}).fetch()
+    };
+  },
+
   render() {
+    let {styleguide, patterns} = this.data;
+    let slug = styleguide.slug;
     return (
       <aside className="sidebar">
-          <a
-            href={`/${this.props.styleguide.slug}`}
-            className="brand">
-            {this.props.styleguide.name}
-          </a>
-        {this.props.children}
+        <a
+          href={`/${slug}`}
+          className="brand">
+          {styleguide.name}
+        </a>
+        <nav className="nav">
+          <a href={`/${slug}`}>About</a>
+          <a href={`/${slug}`}>Getting started</a>
+        </nav>
+        <nav className="nav">
+          {patterns.map((pattern, i) => {
+            return (
+              <a href={`/${slug}#${pattern.slug}`} key={i}>
+                {pattern.name}
+              </a>
+            );
+          })}
+        </nav>
+        <nav className="nav">
+          <a href={`/${slug}/settings`}>Settings</a>
+        </nav>
       </aside>
     );
   }

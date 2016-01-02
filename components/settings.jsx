@@ -9,14 +9,27 @@ const Settings = React.createClass({
     };
   },
 
-  handleSave() {
-    console.log("save");
+  handleSave(event) {
+    event.preventDefault();
+    let name = ReactDOM.findDOMNode(this.refs.name).value;
+    let stylesheet = ReactDOM.findDOMNode(this.refs.stylesheet).value;
+    Meteor.call('updateStyleguide', {
+      id: this.data.styleguide._id,
+      name: name,
+      stylesheet: stylesheet
+    }, (error, success) => {
+      if(success) {
+        Session.set('alert', 'Boom! Styleguide updated')
+      }
+    });
   },
 
   handleDelete() {
     if(window.confirm('Are you sure you want to delete this styleguide?')) {
       Meteor.call('deleteStyleguide', this.data.styleguide._id, (error, success) => {
-        Session.set('alert', 'Styleguide deleted!');
+        if(success) {
+          Session.set('alert', 'Poof! Styleguide deleted');
+        }
       });
     }
   },
@@ -25,7 +38,7 @@ const Settings = React.createClass({
     let {styleguide} = this.data;
     return (
       <Container>
-        <Sidebar styleguide={styleguide}/>
+        <Sidebar styleguide={styleguide._id}/>
         <Main>
           <header className="section__header">
             <h3>Settings</h3>
@@ -35,7 +48,8 @@ const Settings = React.createClass({
               <label>Styleguide name</label>
               <input
                 type="text"
-                defaultValue={styleguide.name}/>
+                defaultValue={styleguide.name}
+                ref="name"/>
             </div>
             <div className="form-group">
               <label>URL slug</label>
@@ -48,13 +62,16 @@ const Settings = React.createClass({
               <label>Stylesheet URL</label>
               <input
                 type="url"
-                defaultValue={styleguide.stylesheet}/>
+                defaultValue={styleguide.stylesheet}
+                ref="stylesheet"/>
             </div>
             <button type="submit" onClick={this.handleSave}>Save settings</button>
           </form>
           <section className="section">
-            <div className="form-group">
+            <header className="section__header">
               <h3>Danger zone!</h3>
+            </header>
+            <div className="form-group">
               <p>Delete styleguide and patterns. Careful, this action can't be undone!</p>
               <button className="negative" onClick={this.handleDelete}>Delete styleguide</button>
             </div>
@@ -83,6 +100,21 @@ if(Meteor.isClient) {
 
 if(Meteor.isServer) {
   Meteor.methods({
+    updateStyleguide(args) {
+      check(args, {
+        id: String,
+        name: String,
+        stylesheet: String
+      });
+
+      return Styleguides.update(args.id, {
+        $set: {
+          name: args.name,
+          stylesheet: args.stylesheet
+        }
+      })
+    },
+
     deleteStyleguide(id) {
       check(id, String);
       return [

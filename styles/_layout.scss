@@ -26,7 +26,22 @@
 }
 
 .section__header {
-  margin-bottom: 1.5em;
-  padding-bottom: 1em;
-  border-bottom: 3px solid $colorGray;
+  margin-bottom: 1em;
+}
+
+.nav {
+  + .nav {
+    margin-top: 1em;
+  }
+
+  a {
+    display: block;
+    // font-weight: bold;
+    padding: 0.25em 0;
+    color: $colorGrayDark;
+
+    &:hover {
+      color: $colorBrand;
+    }
+  }
 }

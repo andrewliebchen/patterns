@@ -14,9 +14,7 @@ Styleguide = React.createClass({
     let {styleguide, patterns} = this.data;
     return (
       <Container>
-        <Sidebar styleguide={styleguide}>
-          {/*<NewPattern styleguideId={styleguide._id}/>*/}
-        </Sidebar>
+        <Sidebar styleguide={styleguide._id}/>
         <Main>
           <PatternList
             patterns={patterns}

@@ -28,7 +28,7 @@ label {
 input,
 textarea {
   appearance: none;
-  background-color: $colorGrayMid;
+  background-color: $colorGray;
   border: 0;
   color: inherit;
   display: block;
@@ -36,7 +36,7 @@ textarea {
   width: 100%;
 
   &:hover {
-    background-color: lighten($colorGrayMid, 2%);
+    background-color: darken($colorGray, 2%);
   }
 
   &:focus {
@@ -45,8 +45,9 @@ textarea {
   }
 
   &:disabled {
-    color: lighten($colorGrayDark, 25%);
+    @include hatch($colorGray, white);
     pointer-events: none;
+    cursor: not-allowed;
   }
 }
 
@@ -90,6 +91,7 @@ button {
   &:disabled {
     opacity: 0.5;
     pointer-events: none;
+    cursor: not-allowed;
   }
 
   &.full-width {
