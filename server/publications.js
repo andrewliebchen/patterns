@@ -9,3 +9,8 @@ Meteor.publish('styleguide', (slug) => {
     Patterns.find({'styleguide': styleguide.fetch()[0]._id})
   ];
 });
+
+Meteor.publish('comments', (pattern) => {
+  check(pattern, String);
+  return Comments.find({pattern: pattern});
+})

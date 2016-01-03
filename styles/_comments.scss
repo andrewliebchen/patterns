@@ -1,0 +1,90 @@
+.comments {
+
+}
+
+.comment {
+  padding: 1em;
+  position: relative;
+
+  &:hover {
+    background-color: white;
+  }
+}
+
+.comment__header {
+  display: flex;
+}
+
+.comment__name {
+  flex: 1;
+}
+
+.comment__meta {
+  small {
+    position: relative;
+    top: 1px;
+  }
+}
+
+.comment__meta__item {
+  float: left;
+  margin-left: 0.25em;
+}
+
+.comment__settings__menu {
+  top: 3em;
+  right: 1em;
+  z-index: 1;
+}
+
+.comment__body {
+  padding-left: 2.5em;
+
+  p:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.comment__new {
+  background-color: white;
+
+  .avatar {
+    left: 1.5em;
+    position: absolute;
+    top: 1.5em;
+  }
+
+  input {
+    padding-left: 3em;
+  }
+}
+
+.comments__no-content {
+  @include uppercase;
+  color: $colorGrayMid;
+  text-align: center;
+  margin: 3em auto;
+  width: 50%;
+}
+
+.comment-enter {
+  opacity: 0.01;
+  transform: scale(0.5);
+
+  &.comment-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.2s $ease-in-out-back;
+  }
+}
+
+.comment-leave {
+  opacity: 1;
+  transform: scale(1);
+
+  &.comment-leave-active {
+    opacity: 0.01;
+    transform: scale(1.5);
+    transition: all 0.1s $ease-in-out-back;
+  }
+}

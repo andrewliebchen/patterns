@@ -10,7 +10,7 @@ Example = React.createClass({
       <div className="example">
         <Tabs
         	defaultTabNum={0}
-        	tabNames={['Example','Markup']}>
+        	tabNames={['Example','Markup', 'Comments']}>
           <section className="tabs__pane">
             <ExampleView
               markup={this.props.markup}
@@ -20,6 +20,11 @@ Example = React.createClass({
             <Editor
               markup={this.props.markup}
               patternId={this.props.patternId}/>
+          </section>
+          <section className="tabs__pane">
+            <CommentsList
+              patternId={this.props.patternId}
+              currentUser={{}}/>
           </section>
         </Tabs>
       </div>
