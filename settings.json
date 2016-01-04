@@ -7,6 +7,10 @@
     "password": "",
     "host": ""
   },
+  "google": {
+    "clientId": "164804059553-ao7v8ui4utge8cpk4823jfo8462t9rvg.apps.googleusercontent.com",
+    "secret": "Y51tbracXnVKfA3BzZUUsMSh"
+  },
   "public": {
     "site_url": "http://localhost:3000"
   }

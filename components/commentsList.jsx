@@ -1,18 +1,18 @@
 const CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 CommentsList = React.createClass({
-  mixins: [ReactMeteorData],
+  mixins: [ReactMeteorData, AccountActionsMixin],
 
   propTypes: {
-    patternId: React.PropTypes.string,
-    currentUser: React.PropTypes.object
+    patternId: React.PropTypes.string
   },
 
   getMeteorData() {
     let commentsSub = Meteor.subscribe('comments', this.props.patternId);
     return {
       loading: !commentsSub.ready(),
-      comments: Comments.find({pattern: this.props.patternId}).fetch()
+      comments: Comments.find({patternId: this.props.patternId}).fetch(),
+      currentUser: Meteor.user()
     };
   },
 
@@ -22,7 +22,7 @@ CommentsList = React.createClass({
         text: event.target.value,
         created_at: Date.now(),
         created_by: Meteor.user()._id,
-        parent: this.props.patternId
+        patternId: this.props.patternId
       }, (error, success) => {
         if(error) {
           console.log(error);
@@ -46,21 +46,21 @@ CommentsList = React.createClass({
                   key={i}
                   comment={comment}
                   id={comment._id}
-                  currentUser={this.props.currentUser}/>
+                  currentUser={this.data.currentUser}/>
               );
             })}
           </CSSTransitionGroup>
         : <div className="comments__no-content">Doh, no comments yet</div>}
         <div className="comment comment__new">
-          {this.props.currentUser ?
+          {this.data.currentUser ?
             <span>
               <input
                 onKeyUp={this.handleKeyUp}
                 ref="commentInput"/>
-              {/*<Avatar user={this.props.currentUser} size="small"/>*/}
+              <Avatar user={this.data.currentUser} size="small"/>
             </span>
           :
-            <button className="full-width">
+            <button className="full-width" onClick={this.handleSignIn}>
               Sign in with Google to comment
             </button>
           }

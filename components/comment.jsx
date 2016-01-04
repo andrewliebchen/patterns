@@ -7,6 +7,14 @@ SingleComment = React.createClass({
     currentUser: React.PropTypes.object
   },
 
+  getMeteorData() {
+    let commenterSub = Meteor.subscribe('user', this.props.comment.created_by);
+    return {
+      loading: !commenterSub.ready(),
+      commenter: Meteor.users.findOne(this.props.comment.created_by)
+    };
+  },
+
   handleCommentDelete() {
     Meteor.call('deleteComment', this.props.id, (err, success) => {
       if(success) {
@@ -25,12 +33,12 @@ SingleComment = React.createClass({
     let isCommentOwner = this._isCommentOwner();
 
     if(loading) {
-      return <Loading/>;
+      return false;
     }
 
     return (
       <div className="comment">
-        {/*<Avatar user={commenter} size="small"/>*/}
+        <Avatar user={commenter} size="small"/>
         <div className="comment__body">
           <header className="comment__header">
             <h4 className="comment__name">{commenter.profile.name}</h4>
@@ -50,7 +58,7 @@ SingleComment = React.createClass({
             </div>
           </header>
           <div className="comment__content">
-            <Markdown>{comment.comment}</Markdown>
+            <Markdown>{comment.text}</Markdown>
           </div>
         </div>
       </div>

@@ -12,5 +12,10 @@ Meteor.publish('styleguide', (slug) => {
 
 Meteor.publish('comments', (pattern) => {
   check(pattern, String);
-  return Comments.find({pattern: pattern});
-})
+  return Comments.find({patternId: pattern});
+});
+
+Meteor.publish('user', (id) => {
+  check(id, String);
+  return Meteor.users.find({_id: id});
+});

@@ -22,9 +22,7 @@ Example = React.createClass({
               patternId={this.props.patternId}/>
           </section>
           <section className="tabs__pane">
-            <CommentsList
-              patternId={this.props.patternId}
-              currentUser={{}}/>
+            <CommentsList patternId={this.props.patternId}/>
           </section>
         </Tabs>
       </div>
