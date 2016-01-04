@@ -2,7 +2,8 @@ Example = React.createClass({
   propTypes: {
     patternId: React.PropTypes.string,
     markup: React.PropTypes.string,
-    stylesheet: React.PropTypes.string
+    stylesheet: React.PropTypes.string,
+    script: React.PropTypes.string
   },
 
   render: function() {
@@ -12,9 +13,10 @@ Example = React.createClass({
         	defaultTabNum={0}
         	tabNames={['Example','Markup', 'Comments']}>
           <section className="tabs__pane">
-            <ExampleView
+            <ExampleFrame
               markup={this.props.markup}
-              stylesheet={this.props.stylesheet}/>
+              stylesheet={this.props.stylesheet}
+              script={this.props.script}/>
           </section>
           <section className="tabs__pane">
             <Editor

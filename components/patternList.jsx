@@ -1,7 +1,8 @@
 PatternList = React.createClass({
   propTypes: {
     patterns: React.PropTypes.array,
-    stylesheet: React.PropTypes.string
+    stylesheet: React.PropTypes.string,
+    script: React.PropTypes.string
   },
 
   render() {
@@ -26,7 +27,8 @@ PatternList = React.createClass({
               <Example
                 patternId={pattern._id}
                 markup={pattern.markup}
-                stylesheet={this.props.stylesheet}/>
+                stylesheet={this.props.stylesheet}
+                script={this.props.script}/>
             </div>
           )
         })}

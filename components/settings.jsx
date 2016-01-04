@@ -13,10 +13,12 @@ const Settings = React.createClass({
     event.preventDefault();
     let name = ReactDOM.findDOMNode(this.refs.name).value;
     let stylesheet = ReactDOM.findDOMNode(this.refs.stylesheet).value;
+    let script = ReactDOM.findDOMNode(this.refs.script).value;
     Meteor.call('updateStyleguide', {
       id: this.data.styleguide._id,
       name: name,
-      stylesheet: stylesheet
+      stylesheet: stylesheet,
+      script: script
     }, (error, success) => {
       if(success) {
         Session.set('alert', 'Boom! Styleguide updated')
@@ -65,6 +67,13 @@ const Settings = React.createClass({
                 defaultValue={styleguide.stylesheet}
                 ref="stylesheet"/>
             </div>
+            <div className="form-group">
+              <label>Script URL</label>
+              <input
+                type="url"
+                defaultValue={styleguide.script}
+                ref="script"/>
+            </div>
             <button type="submit" onClick={this.handleSave}>Save settings</button>
           </form>
           <section className="section">
@@ -104,13 +113,15 @@ if(Meteor.isServer) {
       check(args, {
         id: String,
         name: String,
-        stylesheet: String
+        stylesheet: String,
+        script: String
       });
 
       return Styleguides.update(args.id, {
         $set: {
           name: args.name,
-          stylesheet: args.stylesheet
+          stylesheet: args.stylesheet,
+          script: args.script
         }
       })
     },

@@ -18,7 +18,8 @@ Styleguide = React.createClass({
         <Main>
           <PatternList
             patterns={patterns}
-            stylesheet={styleguide.stylesheet}/>
+            stylesheet={styleguide.stylesheet}
+            script={styleguide.script}/>
         </Main>
       </Container>
     );
