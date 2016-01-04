@@ -1,14 +1,11 @@
 .comments {
-
+  background-color: $colorGray;
+  padding: 1em;
 }
 
 .comment {
-  padding: 1em;
   position: relative;
-
-  &:hover {
-    background-color: white;
-  }
+  margin-top: 1em;
 }
 
 .comment__header {
@@ -46,25 +43,20 @@
 }
 
 .comment__new {
-  background-color: white;
-
   .avatar {
-    left: 1.5em;
+    left: 0.75em;
     position: absolute;
-    top: 1.5em;
+    top: 0.5em;
   }
 
   input {
     padding-left: 3em;
-  }
-}
+    background-color: lighten($colorGray, 3%);
 
-.comments__no-content {
-  @include uppercase;
-  color: $colorGrayMid;
-  text-align: center;
-  margin: 3em auto;
-  width: 50%;
+    &:hover {
+      background-color: white;
+    }
+  }
 }
 
 .comment-enter {

@@ -1,7 +1,7 @@
 const CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 CommentsList = React.createClass({
-  mixins: [ReactMeteorData, AccountActionsMixin],
+  mixins: [ReactMeteorData],
 
   propTypes: {
     patternId: React.PropTypes.string
@@ -16,71 +16,48 @@ CommentsList = React.createClass({
     };
   },
 
-  handleKeyUp(event) {
-    if(event.keyCode === 13) {
-      Meteor.call('newComment', {
-        text: event.target.value,
-        created_at: Date.now(),
-        created_by: Meteor.user()._id,
-        patternId: this.props.patternId
-      }, (error, success) => {
-        if(error) {
-          console.log(error);
-        }
-      });
-    }
+  getInitialState() {
+    return {
+      comments: false
+    };
+  },
+
+  handleToggleComments() {
+    this.setState({comments: !this.state.comments});
   },
 
   render() {
-    if(this.data.loading) {
+    let {loading, comments, currentUser} = this.data;
+    let commentCount = comments.length;
+
+    if(loading) {
       return <Loading/>;
     }
 
     return (
       <div className="comments section">
-        {this.data.comments.length > 0 ?
-          <CSSTransitionGroup transitionName="comment">
-            {this.data.comments.map((comment, i) => {
-              return (
-                <SingleComment
-                  key={i}
-                  comment={comment}
-                  id={comment._id}
-                  currentUser={this.data.currentUser}/>
-              );
-            })}
-          </CSSTransitionGroup>
-        : <div className="comments__no-content">Doh, no comments yet</div>}
-        <div className="comment comment__new">
-          {this.data.currentUser ?
-            <span>
-              <input
-                onKeyUp={this.handleKeyUp}
-                ref="commentInput"/>
-              <Avatar user={this.data.currentUser} size="small"/>
-            </span>
-          :
-            <button className="full-width" onClick={this.handleSignIn}>
-              Sign in with Google to comment
-            </button>
-          }
-        </div>
+        <button className="full-width" onClick={this.handleToggleComments}>
+          {commentCount > 0 ? `${commentCount} comment${commentCount > 1 ? 's' : ''}` : 'Comment'}
+        </button>
+        {this.state.comments ?
+          <span>
+            <CSSTransitionGroup transitionName="comment">
+              {comments.map((comment, i) => {
+                return (
+                  <SingleComment
+                    key={i}
+                    comment={comment}
+                    id={comment._id}
+                    currentUser={currentUser}/>
+                );
+              })}
+            </CSSTransitionGroup>
+            <NewComment
+              currentUser={currentUser}
+              patternId={this.props.patternId}/>
+          </span>
+        : null}
       </div>
     );
   }
 });
-
-if(Meteor.isServer) {
-  Meteor.methods({
-    newComment(args) {
-      check(args, {
-        text: String,
-        created_at: Number,
-        created_by: String,
-        patternId: String
-      });
-
-      return Comments.insert(args);
-    }
-  });
-}
