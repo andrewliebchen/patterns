@@ -9,25 +9,31 @@ SinglePattern = React.createClass({
     let {pattern, stylesheet, script} = this.props;
     return (
       <div className="pattern section">
-        <h3>
+        <div className="section__content">
+          <h3>
+            <InlineEdit
+              defaultValue={pattern.name}
+              method="updatePatternName"
+              parentId={pattern._id}
+              placeholder="Click to add at title"/>
+          </h3>
           <InlineEdit
-            defaultValue={pattern.name}
-            method="updatePatternName"
+            defaultValue={pattern.description}
+            type="textarea"
+            method="updatePatternDescription"
             parentId={pattern._id}
-            placeholder="Click to add at title"/>
-        </h3>
-        <InlineEdit
-          defaultValue={pattern.description}
-          type="textarea"
-          method="updatePatternDescription"
-          parentId={pattern._id}
-          placeholder="Click to add a description"/>
-        <Example
-          patternId={pattern._id}
-          markup={pattern.markup}
-          stylesheet={stylesheet}
-          script={script}/>
-        <CommentsList patternId={pattern._id}/>
+            placeholder="Click to add a description"/>
+          <Example
+            markup={pattern.markup}
+            stylesheet={stylesheet}
+            script={script}/>
+          <CommentsList patternId={pattern._id}/>
+        </div>
+        <div className="section__inspector">
+          <Editor
+            markup={pattern.markup}
+            patternId={pattern._id}/>
+        </div>
       </div>
     );
   }

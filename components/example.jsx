@@ -1,30 +1,34 @@
 Example = React.createClass({
   propTypes: {
-    patternId: React.PropTypes.string,
     markup: React.PropTypes.string,
     stylesheet: React.PropTypes.string,
     script: React.PropTypes.string
   },
 
-  render: function() {
+  _renderExample() {
+    let exampleFrame = this.refs.example;
+    let exampleFrameDoc = exampleFrame.contentWindow.document;
+
+    let stylesheet = `<link rel="stylesheet" href="${this.props.stylesheet}" crossorigin="anonymous">`;
+    let script = this.props.script ? `<script src="${this.props.script}" crossorigin="anonymous"></script>` : '';
+    let head = `<head>${stylesheet}${script}</head>`;
+    let body = `<body style="display:inline-block;">${this.props.markup}</body>`;
+    let html = `<html>${head}${body}</html>`;
+
+    exampleFrameDoc.write(html);
+  },
+
+  componentDidMount() {
+    this._renderExample();
+  },
+
+  render() {
     return (
-      <div className="example">
-        <Tabs
-        	defaultTabNum={0}
-        	tabNames={['Example','Markup']}>
-          <section className="tabs__pane">
-            <ExampleFrame
-              markup={this.props.markup}
-              stylesheet={this.props.stylesheet}
-              script={this.props.script}/>
-          </section>
-          <section className="tabs__pane">
-            <Editor
-              markup={this.props.markup}
-              patternId={this.props.patternId}/>
-          </section>
-        </Tabs>
-      </div>
+      <iframe
+        className="example__frame"
+        frameBorder="0"
+        scrolling="no"
+        ref="example"/>
     );
   }
 });

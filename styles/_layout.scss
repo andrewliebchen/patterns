@@ -1,13 +1,10 @@
 .wrapper {
-  padding: 1em;
+
 }
 
 .container {
   display: flex;
-  max-width: $maxWidth;
-  margin: auto;
   background-color: white;
-  padding: $offset;
 }
 
 .sidebar {
@@ -16,13 +13,22 @@
 
 .main {
   flex: 4;
-  padding-left: $offset;
+  padding: 1em;
 }
 
 .section {
+  display: flex;
   + .section {
     margin-top: $offset;
   }
+}
+
+.section__content {
+  flex: 3;
+}
+
+.section__inspector {
+  flex: 2;
 }
 
 .section__header {
