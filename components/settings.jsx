@@ -18,10 +18,11 @@ const Settings = React.createClass({
       id: this.data.styleguide._id,
       name: name,
       stylesheet: stylesheet,
-      script: script
+      script: script,
+      slug: getSlug(name)
     }, (error, success) => {
       if(success) {
-        Session.set('alert', 'Boom! Styleguide updated')
+        Session.set('alert', 'Boom! Styleguide updated');
       }
     });
   },
@@ -114,14 +115,16 @@ if(Meteor.isServer) {
         id: String,
         name: String,
         stylesheet: String,
-        script: String
+        script: String,
+        slug: String
       });
 
       return Styleguides.update(args.id, {
         $set: {
           name: args.name,
           stylesheet: args.stylesheet,
-          script: args.script
+          script: args.script,
+          slug: args.slug
         }
       })
     },
