@@ -1,13 +1,9 @@
 Editor = React.createClass({
+  mixins: [EditorMixin],
+
   propTypes: {
     markup: React.PropTypes.string,
     patternId: React.PropTypes.string,
-  },
-
-  getInitialState() {
-    return {
-      editor: null
-    };
   },
 
   handleSave() {
@@ -17,15 +13,6 @@ Editor = React.createClass({
     }, (error, success) => {
       this.setState({tab: 0});
     });
-  },
-
-  componentDidMount() {
-    let editor = CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs.editor), {
-      lineNumbers: true,
-      mode: 'htmlmixed',
-      theme: 'tomorrow-night-eighties'
-    });
-    this.setState({editor: editor});
   },
 
   render() {

@@ -22,7 +22,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $colorGrayMid;
+  background-color: white;
   z-index: 999;
 }
 
@@ -33,4 +33,15 @@
   top: 50%;
   left: 50%;
   margin: 0 auto;
+}
+
+.new-pattern__close {
+  position: absolute;
+  top: $offset;
+  right: $offset;
+  cursor: pointer;
+
+  &:hover {
+    fill: $colorBrand;
+  }
 }

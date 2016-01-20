@@ -1,24 +1,53 @@
-.tab-container {
-  margin-top: 1em;
+$tabBorderWidth: 3px;
+
+.tabs__container {
+  margin: $offset 0;
 }
 
-.tab {
-  user-select: none;
-  line-height: 2;
-  display: inline-block;
-  font-weight: bold;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -3px;
-  margin-right: 1em;
+.tabs {
+  display: flex;
+}
 
-  &:hover,
-  &.active-tab {
-    color: $colorBrand;
-    border-color: $colorBrand;
+a.tab {
+  border: $tabBorderWidth solid transparent;
+  border-bottom: 0;
+  color: $colorBrand;
+  cursor: pointer;
+  display: inline-block;
+  flex: 1;
+  font-weight: bold;
+  line-height: 2;
+  padding: 0.5em 1em;
+  position: relative;
+  text-align: center;
+  user-select: none;
+
+  &:hover {
+    border-color: $colorGray;
+    text-decoration: none;
+  }
+
+  &.is-selected {
+    border-color: $colorGrayMid;
+    cursor: default;
+
+    &::after {
+      background-color: white;
+      content: "";
+      height: $tabBorderWidth;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 100%;
+    }
+  }
+
+  + .tab {
+    margin-left: 0.5em;
   }
 }
 
 .tabs__pane {
-  border: 3px solid $colorGray;
+  border: $tabBorderWidth solid $colorGrayMid;
+  padding: 1em;
 }
