@@ -35,11 +35,13 @@ Editor = React.createClass({
           className="editor__input"
           defaultValue={this.props.markup}
           ref="editor"/>
-        <button
-          type="submit"
-          onClick={this.handleSave}>
-          Save
-        </button>
+        <footer className="editor__footer">
+          <button
+            type="submit"
+            onClick={this.handleSave}>
+            Save
+          </button>
+        </footer>
       </div>
     );
   }

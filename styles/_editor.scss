@@ -1,4 +1,6 @@
 .editor {
+  position: relative;
+
   .CodeMirror {
     font-size: $fontSize;
     line-height: $lineHeight;
@@ -14,4 +16,15 @@
     background-color: lighten($colorGrayDark, 3%);
     padding-top: 1em;
   }
+}
+
+.editor__footer {
+  // This needs to be better...
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1em;
+  background-color: lighten($colorGrayDark, 3%);
+  z-index: 99;
 }

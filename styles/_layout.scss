@@ -41,7 +41,7 @@
   flex: 2;
 
   .section + .section & {
-    border-top: 3px solid black;
+    border-top: 3px solid lighten($colorGrayDark, 3%);
   }
 }
 
