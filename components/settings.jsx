@@ -43,49 +43,55 @@ const Settings = React.createClass({
       <Container>
         <Sidebar styleguide={styleguide._id}/>
         <Main>
-          <header className="section__header">
-            <h3>Settings</h3>
-          </header>
-          <form className="section">
-            <div className="form-group">
-              <label>Styleguide name</label>
-              <input
-                type="text"
-                defaultValue={styleguide.name}
-                ref="name"/>
-            </div>
-            <div className="form-group">
-              <label>URL slug</label>
-              <input
-                type="url"
-                defaultValue={`${Meteor.settings.public.site_url}/${styleguide.slug}`}
-                disabled/>
-            </div>
-            <div className="form-group">
-              <label>Stylesheet URL</label>
-              <input
-                type="url"
-                defaultValue={styleguide.stylesheet}
-                ref="stylesheet"/>
-            </div>
-            <div className="form-group">
-              <label>Script URL</label>
-              <input
-                type="url"
-                defaultValue={styleguide.script}
-                ref="script"/>
-            </div>
-            <button type="submit" onClick={this.handleSave}>Save settings</button>
-          </form>
-          <section className="section">
-            <header className="section__header">
-              <h3>Danger zone!</h3>
-            </header>
-            <div className="form-group">
-              <p>Delete styleguide and patterns. Careful, this action can't be undone!</p>
-              <button className="negative" onClick={this.handleDelete}>Delete styleguide</button>
-            </div>
-          </section>
+          <div className="section">
+            <section className="section__content">
+              <header className="section__header">
+                <h3>Settings</h3>
+              </header>
+              <form>
+                <div className="form-group">
+                  <label>Styleguide name</label>
+                  <input
+                    type="text"
+                    defaultValue={styleguide.name}
+                    ref="name"/>
+                </div>
+                <div className="form-group">
+                  <label>URL slug</label>
+                  <input
+                    type="url"
+                    defaultValue={`${Meteor.settings.public.site_url}/${styleguide.slug}`}
+                    disabled/>
+                </div>
+                <div className="form-group">
+                  <label>Stylesheet URL</label>
+                  <input
+                    type="url"
+                    defaultValue={styleguide.stylesheet}
+                    ref="stylesheet"/>
+                </div>
+                <div className="form-group">
+                  <label>Script URL</label>
+                  <input
+                    type="url"
+                    defaultValue={styleguide.script}
+                    ref="script"/>
+                </div>
+                <button type="submit" onClick={this.handleSave}>Save settings</button>
+              </form>
+            </section>
+          </div>
+          <div className="section">
+            <section className="section__content">
+              <header className="section__header">
+                <h3>Danger zone!</h3>
+              </header>
+              <div className="form-group">
+                <p>Delete styleguide and patterns. Careful, this action can't be undone!</p>
+                <button className="negative" onClick={this.handleDelete}>Delete styleguide</button>
+              </div>
+            </section>
+          </div>
         </Main>
       </Container>
     );

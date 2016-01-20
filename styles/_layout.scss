@@ -2,37 +2,56 @@
 
 }
 
+.app-header {
+  padding: 0.5em $offset;
+  background-color: $colorGrayMid;
+}
+
 .container {
   display: flex;
-  background-color: white;
 }
 
 .sidebar {
   flex: 1;
+  padding: $offset;
+  // border-right: 1px solid $colorGrayMid;
+  background-color: $colorGray;
 }
 
 .main {
   flex: 4;
-  padding: 1em;
 }
 
 .section {
   display: flex;
-  + .section {
-    margin-top: $offset;
-  }
 }
 
 .section__content {
+  padding: $offset;
   flex: 3;
+  position: relative;
+
+  .section + .section & {
+    border-top: 3px solid $colorGray;
+  }
 }
 
 .section__inspector {
+  background-color: $colorGrayDark;
   flex: 2;
+
+  .section + .section & {
+    border-top: 3px solid black;
+  }
 }
 
 .section__header {
   margin-bottom: 1em;
+
+  .inline-edit__default {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
 }
 
 .nav {
@@ -42,7 +61,6 @@
 
   a {
     display: block;
-    // font-weight: bold;
     padding: 0.25em 0;
     color: $colorGrayDark;
 

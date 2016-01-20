@@ -6,7 +6,7 @@ Styleguide = React.createClass({
     DocHead.setTitle(`${styleguide.name} on Patterns`);
     return {
       styleguide: styleguide,
-      patterns: Patterns.find({}).fetch()
+      patterns: Patterns.find({}, {sort: {created_at: 1}}).fetch()
     };
   },
 

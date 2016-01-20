@@ -10,13 +10,13 @@ SinglePattern = React.createClass({
     return (
       <div className="pattern section">
         <div className="section__content">
-          <h3>
+          <header className="section__header">
             <InlineEdit
               defaultValue={pattern.name}
               method="updatePatternName"
               parentId={pattern._id}
               placeholder="Click to add at title"/>
-          </h3>
+          </header>
           <InlineEdit
             defaultValue={pattern.description}
             type="textarea"

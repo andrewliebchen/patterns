@@ -82,7 +82,8 @@ InlineEdit = React.createClass({
       <span onClick={this.handleEditToggle}>
         {defaultValue ? type === 'textarea' ?
           <Markdown>{defaultValue}</Markdown>
-        : defaultValue : this.props.placeholder}
+        : <span className="inline-edit__default">{defaultValue}</span>
+      : <span className="inline-edit__placeholder">{this.props.placeholder}</span>}
       </span>
     );
   }

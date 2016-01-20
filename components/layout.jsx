@@ -33,6 +33,9 @@ Wrapper = React.createClass({
     return (
       <div className="wrapper">
         <Alert/>
+        <header className="app-header">
+          Patterns
+        </header>
         {this.props.content}
       </div>
     );
@@ -84,6 +87,7 @@ Sidebar = React.createClass({
           })}
         </nav>
         <nav className="nav">
+          <a href={`/${slug}/new-pattern`}>New pattern</a>
           <a href={`/${slug}/settings`}>Settings</a>
         </nav>
       </aside>
