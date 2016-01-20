@@ -53,18 +53,13 @@ Container = React.createClass({
 });
 
 Sidebar = React.createClass({
-  mixins: [ReactMeteorData],
-
-  getMeteorData() {
-    let styleguide = Styleguides.findOne();
-    return {
-      styleguide: styleguide,
-      patterns: Patterns.find({}).fetch()
-    };
+  propTypes: {
+    styleguide: React.PropTypes.object,
+    patterns: React.PropTypes.array
   },
 
   render() {
-    let {styleguide, patterns} = this.data;
+    let {styleguide, patterns} = this.props;
     let slug = styleguide.slug;
     return (
       <aside className="sidebar">
@@ -87,8 +82,8 @@ Sidebar = React.createClass({
           })}
         </nav>
         <nav className="nav">
-          <a href={`/${slug}/new-pattern`}>New pattern</a>
           <a href={`/${slug}/settings`}>Settings</a>
+          <NewPattern/>
         </nav>
       </aside>
     );

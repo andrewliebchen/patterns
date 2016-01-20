@@ -5,7 +5,8 @@ const Settings = React.createClass({
     let styleguide = Styleguides.findOne();
     DocHead.setTitle(`${styleguide.name} settings on Patterns`);
     return {
-      styleguide: styleguide
+      styleguide: styleguide,
+      patterns: Patterns.find({}, {sort: {created_at: 1}}).fetch()
     };
   },
 
@@ -41,7 +42,9 @@ const Settings = React.createClass({
     let {styleguide} = this.data;
     return (
       <Container>
-        <Sidebar styleguide={styleguide._id}/>
+        <Sidebar
+          styleguide={styleguide}
+          patterns={patterns}/>
         <Main>
           <div className="section">
             <section className="section__content">

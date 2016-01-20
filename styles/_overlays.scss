@@ -1,0 +1,36 @@
+// .overlay-enter {
+//   opacity: 0.01;
+//
+//   &.overlay-enter-active {
+//     opacity: 1;
+//     transition: opacity 0.3s ease-in;
+//   }
+// }
+//
+// .overlay-leave {
+//   opacity: 1;
+//
+//   &.overlay-leave-active {
+//     opacity: 0.01;
+//     transition: opacity 0.3s ease-in;
+//   }
+// }
+
+.new-pattern__wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: $colorGrayMid;
+  z-index: 999;
+}
+
+.new-pattern {
+  width: 60em;
+  transform: translate3d(-50%, -50%, 0);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0 auto;
+}
