@@ -22,7 +22,8 @@ Editor = React.createClass({
   componentDidMount() {
     let editor = CodeMirror.fromTextArea(ReactDOM.findDOMNode(this.refs.editor), {
       lineNumbers: true,
-      mode: 'htmlmixed'
+      mode: 'htmlmixed',
+      theme: 'tomorrow-night-eighties'
     });
     this.setState({editor: editor});
   },

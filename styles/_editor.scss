@@ -1,0 +1,17 @@
+.editor {
+  .CodeMirror {
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    font-family: "office code pro", monospace;
+    background-color: $colorGrayDark;
+  }
+
+  .CodeMirror-sizer {
+    padding-top: 1em;
+  }
+
+  .CodeMirror-gutters {
+    background-color: lighten($colorGrayDark, 3%);
+    padding-top: 1em;
+  }
+}

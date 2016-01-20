@@ -22,8 +22,8 @@ body {
   background-color: white;
   color: $colorGrayDark;
   font-family: "Work Sans", "helvetica neue", helvetica, arial, sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: $fontSize;
+  line-height: $lineHeight;
   overflow-x: hidden;
   overflow-y: auto;
 }
