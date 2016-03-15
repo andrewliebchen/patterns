@@ -10,8 +10,8 @@ Example = React.createClass({
     let exampleFrameDoc = exampleFrame.contentWindow.document;
 
     let stylesheet = `<link rel="stylesheet" href="${this.props.stylesheet}" crossorigin="anonymous">`;
-    let script = this.props.script ? `<script src="${this.props.script}" crossorigin="anonymous"></script>` : '';
-    let head = `<head>${stylesheet}${script}</head>`;
+    // let script = this.props.script ? `<script src="${this.props.script}" crossorigin="anonymous"></script>` : '';
+    let head = `<head>${stylesheet}</head>`;
     let body = `<body style="display:inline-block;">${this.props.markup}</body>`;
     let html = `<html>${head}${body}</html>`;
 

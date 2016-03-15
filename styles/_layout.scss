@@ -3,32 +3,41 @@
 }
 
 .app-header {
-  padding: 0.5em $offset;
+  padding: 0 $offset;
+  line-height: $headerHeight;
   background-color: $colorGrayMid;
+  height: $headerHeight;
 }
 
 .container {
-  display: flex;
+  width: 100vw;
 }
 
 .sidebar {
-  flex: 1;
+  width: $sidebarWidth;
   padding: $offset;
-  // border-right: 1px solid $colorGrayMid;
   background-color: $colorGray;
+  position: fixed;
+  left: 0;
+  top: $headerHeight;
 }
 
 .main {
-  flex: 4;
+  left: $sidebarWidth;
+  position: absolute;
+  top: $headerHeight;
+  right: 0;
 }
 
 .section {
   display: flex;
+  align-items: stretch;
 }
 
 .section__content {
+  flex: 0 0 auto;
   padding: $offset;
-  flex: 3;
+  width: 60%;
   position: relative;
 
   .section + .section & {
@@ -37,11 +46,11 @@
 }
 
 .section__inspector {
-  background-color: $colorGrayDark;
-  flex: 2;
+  background-color: lighten($colorGrayDark, 3%);
+  flex: 1 0 auto;
 
   .section + .section & {
-    border-top: 3px solid lighten($colorGrayDark, 3%);
+    border-top: 3px solid $colorGrayDark;
   }
 }
 
