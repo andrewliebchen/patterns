@@ -19,13 +19,14 @@
   background-color: $colorGray;
   position: fixed;
   left: 0;
-  top: $headerHeight;
+  top: 0;
+  bottom: 0;
 }
 
 .main {
   left: $sidebarWidth;
   position: absolute;
-  top: $headerHeight;
+  top: 0;
   right: 0;
 }
 
