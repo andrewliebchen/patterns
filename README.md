@@ -1,10 +1,5 @@
-# Meteor and React boilerplate
-
-Start a simple development server, run:
-
-```
-meteor
-```
+# Patterns
+Online styleguide creator
 
 To start development server with `Meteor.settings`, run:
 
